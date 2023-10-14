@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=61", "setuptools-scm>=8.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pre-commit-homebrew-tap"
+dynamic = ["version"]
+authors = [
+    {name = "Sardorbek Imomaliev", email = "imomaliev@hey.com"},
+    {name = "Jevin Sweval", email = "jevinsweval@gmail.com"},
+]
+description = "pre-commit hooks for Homebrew taps"
+readme = {file = 'README.md', content-type='text/markdown'}
+requires-python = ">=3.8"
+keywords = ["pre-commit", "homebrew", "brew", "tap"]
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "rich",
+    "path",
+]
+
+[project.urls]
+repository = "https://github.com/jevinskie/pre-commit-homebrew-tap"
+
+[project.scripts]
+brew-audit-pre-commit = "pre_commit_homebrew_tap.brew_audit_pre_commit:main"
+
+[tool.setuptools.dynamic]
+version = {attr = "pre_commit_homebrew_tap._version.__version__"}
+
+[tool.setuptools_scm]
+version_file = "pre_commit_homebrew_tap/_version.py"
+
+[tool.setuptools]
+zip-safe = true

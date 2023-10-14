@@ -1,0 +1,18 @@
+- id: homebrew-style-formula
+  name: homebrew-style-formula
+  description: Check formulae or files for conformance to Homebrew style guidelines.
+  entry: brew style
+  args: [--formula, --fix]
+  types: [ruby]
+  language: system
+  files: ^Formula/.*$
+  minimum_pre_commit_version: 2.9.2
+- id: homebrew-audit-formula
+  name: homebrew-audit-formula
+  description: Check formula for Homebrew coding style violations
+  entry: brew audit-pre-commit
+  args: [--formula, --strict]
+  types: [ruby]
+  language: python
+  files: ^Formula/.*$
+  minimum_pre_commit_version: 2.9.2
