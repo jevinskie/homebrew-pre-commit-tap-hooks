@@ -1,13 +1,75 @@
-#!/usr/bin/env sh
-#:  * `audit-pre-commit` [<options>]
-#:
-#:  `brew audit` that still takes Formula/Cask filenames instead of just names
-#:
-#:          --merge                      Use `git merge` to apply updates (rather than `git rebase`).
-#:          --preinstall                 Run on auto-updates (e.g. before `brew install`). Skips some slower steps.
-#:      -f, --force                      Always do a slower, full update check (even if unnecessary).
-#:      -v, --verbose                    Print the directories checked and `git` operations performed.
-#:      -d, --debug                      Display a trace of all shell commands as they are executed.
-#:      -h, --help                       Show this message.
+#!/usr/bin/env python3
 
-brewz-audit-pre-commit $@
+#: * `audit-pre-commit` [options] [formula|cask Ruby files...]
+#:
+#: `brew audit` that still takes Formula/Cask filenames instead of just names
+#:
+#: Check formula for Homebrew coding style violations. This should be run before
+#: submitting a new formula or cask. If no formula|cask are provided, check all
+#: locally available formulae and casks and skip style checks. Will exit with a
+#: non-zero status if any errors are found.
+#:
+#:       --os                         Audit the given operating system. (Pass all
+#:                                    to audit all operating systems.)
+#:       --arch                       Audit the given CPU architecture. (Pass all
+#:                                    to audit all architectures.)
+#:       --strict                     Run additional, stricter style checks.
+#:       --git                        Run additional, slower style checks that
+#:                                    navigate the Git repository.
+#:       --online                     Run additional, slower style checks that
+#:                                    require a network connection.
+#:       --installed                  Only check formulae and casks that are
+#:                                    currently installed.
+#:       --eval-all                   Evaluate all available formulae and casks,
+#:                                    whether installed or not, to audit them.
+#:                                    Implied if HOMEBREW_EVAL_ALL is set.
+#:       --new, --new-formula, --new-cask
+#:                                    Run various additional style checks to
+#:                                    determine if a new formula or cask is
+#:                                    eligible for Homebrew. This should be used
+#:                                    when creating new formula and implies
+#:                                    --strict and --online.
+#:       --[no-]signing               Audit for signed apps, which are required on
+#:                                    ARM
+#:       --token-conflicts            Audit for token conflicts.
+#:       --tap                        Check the formulae within the given tap,
+#:                                    specified as user/repo.
+#:       --fix                        Fix style violations automatically using
+#:                                    RuboCop's auto-correct feature.
+#:       --display-filename           Prefix every line of output with the file or
+#:                                    formula name being audited, to make output
+#:                                    easy to grep.
+#:       --skip-style                 Skip running non-RuboCop style checks. Useful
+#:                                    if you plan on running brew style
+#:                                    separately. Enabled by default unless a
+#:                                    formula is specified by name.
+#:   -D, --audit-debug                Enable debugging and profiling of audit
+#:                                    methods.
+#:       --only                       Specify a comma-separated method list to
+#:                                    only run the methods named audit_method.
+#:       --except                     Specify a comma-separated method list to
+#:                                    skip running the methods named
+#:                                    audit_method.
+#:       --only-cops                  Specify a comma-separated cops list to
+#:                                    check for violations of only the listed
+#:                                    RuboCop cops.
+#:       --except-cops                Specify a comma-separated cops list to skip
+#:                                    checking for violations of the listed RuboCop
+#:                                    cops.
+#:       --formula, --formulae        Treat all named arguments as formulae.
+#:       --cask, --casks              Treat all named arguments as casks.
+#:   -d, --debug                      Display any debugging information.
+#:   -q, --quiet                      Make some output more quiet.
+#:   -v, --verbose                    Make some output more verbose.
+#:       --verbose-pre-commit         Make pre-commit hook related output more verbose.
+#:       --version                    Print the version numbers of audit-pre-commit, Homebrew,
+#:                                    Homebrew/homebrew-core and Homebrew/homebrew-cask
+#:                                    (if tapped) to standard output.
+#:   -h, --help                       Show this message.
+
+import sys
+
+from homebrew_pre_commit_tap_hooks.brew_audit_pre_commit import main
+
+if __name__ == "__main__":
+    sys.exit(main())
