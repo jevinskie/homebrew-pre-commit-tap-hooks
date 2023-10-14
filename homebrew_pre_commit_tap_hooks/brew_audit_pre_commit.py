@@ -17,10 +17,10 @@ import sys
 
 from path import Path
 
-from pre_commit_homebrew_tap._version import (
-    __version__ as pre_commit_homebrew_tap_version,
+from homebrew_pre_commit_tap_hooks._version import (
+    __version__ as homebrew_pre_commit_tap_hooks_version,
 )
-from pre_commit_homebrew_tap.utils import (
+from homebrew_pre_commit_tap_hooks.utils import (
     log,
     looks_like_recipe,
     program_name,
@@ -32,7 +32,7 @@ def real_main(wrapper_args: argparse.Namespace, brew_args: list[str]) -> int:
     print(f"args: {' '.join(sys.argv)}")
     print(f"wrapper_args: {wrapper_args} brew_args: {brew_args}")
     if wrapper_args.version:
-        print(f"{program_name} version {pre_commit_homebrew_tap_version}")
+        print(f"{program_name} version {homebrew_pre_commit_tap_hooks_version}")
         print(
             subprocess.run(["brew", "--version"], capture_output=True, text=True).stdout,
             end="",

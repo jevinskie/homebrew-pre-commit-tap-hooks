@@ -1,7 +1,7 @@
 # Python
 **/__pycache__/
-/pre_commit_homebrew_tap.egg-info/
-/pre_commit_homebrew_tap/_version.py
+/homebrew_pre_commit_tap_hooks.egg-info/
+/homebrew_pre_commit_tap_hooks/_version.py
 
 # VS Code
 **/.vscode

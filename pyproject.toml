@@ -3,7 +3,7 @@ requires = ["setuptools>=61", "setuptools-scm>=8.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pre-commit-homebrew-tap"
+name = "homebrew-pre-commit-tap-hooks"
 dynamic = ["version"]
 authors = [
     {name = "Sardorbek Imomaliev", email = "imomaliev@hey.com"},
@@ -23,16 +23,16 @@ dependencies = [
 ]
 
 [project.urls]
-repository = "https://github.com/jevinskie/pre-commit-homebrew-tap"
+repository = "https://github.com/jevinskie/homebrew-pre-commit-tap-hooks"
 
 [project.scripts]
-brew-audit-pre-commit = "pre_commit_homebrew_tap.brew_audit_pre_commit:main"
+brew-audit-pre-commit = "homebrew_pre_commit_tap_hooks.brew_audit_pre_commit:main"
 
 [tool.setuptools.dynamic]
-version = {attr = "pre_commit_homebrew_tap._version.__version__"}
+version = {attr = "homebrew_pre_commit_tap_hooks._version.__version__"}
 
 [tool.setuptools_scm]
-version_file = "pre_commit_homebrew_tap/_version.py"
+version_file = "homebrew_pre_commit_tap_hooks/_version.py"
 
 [tool.setuptools]
 zip-safe = true
