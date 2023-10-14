@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-#: * `audit-pre-commit` [options] [formula|cask Ruby files...]
+#: `brew audit-pre-commit` [options] [formula|cask Ruby files ...]
 #:
-#: `brew audit` that still takes Formula/Cask filenames instead of just names
+#: `brew audit` that still takes Formula/Cask filenames instead of just names.
 #:
 #: Check formula for Homebrew coding style violations. This should be run before
 #: submitting a new formula or cask. If no formula|cask are provided, check all
@@ -62,9 +62,7 @@
 #:   -q, --quiet                      Make some output more quiet.
 #:   -v, --verbose                    Make some output more verbose.
 #:       --verbose-pre-commit         Make pre-commit hook related output more verbose.
-#:       --version                    Print the version numbers of audit-pre-commit, Homebrew,
-#:                                    Homebrew/homebrew-core and Homebrew/homebrew-cask
-#:                                    (if tapped) to standard output.
+#:       --version                    Print the version numbers of audit-pre-commit, Homebrew, Homebrew/homebrew-core and Homebrew/homebrew-cask (if tapped) to standard output.
 #:   -h, --help                       Show this message.
 
 import sys

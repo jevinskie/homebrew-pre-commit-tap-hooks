@@ -4,8 +4,10 @@
 import argparse
 import logging
 import os
+import re
 import subprocess
 import sys
+from typing import Optional
 
 from path import Path
 
@@ -57,44 +59,42 @@ class BrewAuditPreCommitHelpFormatter(argparse.HelpFormatter):
             text=True,
             env={**os.environ, "HOMEBREW_COLOR": "1"},
         ).stdout
-        print(f"brew_audit_str type: {type(brew_audit_str)}")
         hook_help_lines = brew_audit_str.splitlines()
-        print(f"hook_help_lines type: {type(hook_help_lines)}")
-        print(f"hook_help_lines[0] type: {type(hook_help_lines[0])}")
-        print(f"hook_help_lines[0]: {hook_help_lines[0]}")
-
         hook_help_lines[0] = hook_help_lines[0].replace("audit", "audit-pre-commit")
         hook_help_lines[0] = hook_help_lines[0].replace("...", "Ruby files ...")
+        hook_help_lines.insert(
+            2,
+            "\x1b[1mbrew audit\x1b[0m that still takes Formula/Cask filenames instead of just names.",
+        )
+        hook_help_lines.insert(3, "")
 
-        # for i, line in enumerate(logos_help_lines):
-        #     match: Optional[re.Match] = re.match(
-        #         "^(?P<pre_space>\s+)--verbose(?P<post_space>\s+)-", line
-        #     )
-        #     if match is not None:
-        #         num_chars_before_dash = len(match.group(0)) - 1
-        #         logos_verbose_line = match.group("pre_space") + "--verbose-logos"
-        #         num_spaces_after_verbose_logos = num_chars_before_dash - len(logos_verbose_line)
-        #         logos_verbose_line = (
-        #             logos_verbose_line
-        #             + " " * num_spaces_after_verbose_logos
-        #             + f"- If set, shows verbose operation of {self._prog}."
-        #         )
-        #         logos_help_lines.insert(i + 1, logos_verbose_line)
-        #         logos_save_temps_line = match.group("pre_space") + "--save-logos-temps"
-        #         num_spaces_after_logos_save_temps = num_chars_before_dash - len(
-        #             logos_save_temps_line
-        #         )
-        #         logos_verbose_line = (
-        #             logos_save_temps_line
-        #             + " " * num_spaces_after_logos_save_temps
-        #             + f"- If set, don't delete temporary {self._prog} files."
-        #         )
-        #         logos_help_lines.insert(i + 2, logos_verbose_line)
+        for i, line in enumerate(hook_help_lines):
+            match: Optional[re.Match] = re.match("^(?P<pre_long_opt>\s+-v, )--verbose\s+", line)
+            if match is not None:
+                num_chars_before_desc = len(match.group(0))
+                pre_commit_verbose_line = (
+                    " " * len(match.group("pre_long_opt")) + "--verbose-pre-commit"
+                )
+                num_spaces_after_verbose_pre_commit = num_chars_before_desc - len(
+                    pre_commit_verbose_line
+                )
+                pre_commit_verbose_line = (
+                    pre_commit_verbose_line
+                    + " " * num_spaces_after_verbose_pre_commit
+                    + f"Make pre-commit hook related output more verbose."
+                )
+                hook_help_lines.insert(i + 1, pre_commit_verbose_line)
+                pre_commit_version_line = " " * len(match.group("pre_long_opt")) + "--version"
+                num_spaces_after_pre_commit_version = num_chars_before_desc - len(
+                    pre_commit_version_line
+                )
+                pre_commit_version_line = (
+                    pre_commit_version_line
+                    + " " * num_spaces_after_pre_commit_version
+                    + "Print the version numbers of audit-pre-commit, Homebrew, Homebrew/homebrew-core and Homebrew/homebrew-cask (if tapped) to standard output."
+                )
+                hook_help_lines.insert(i + 2, pre_commit_version_line)
         hook_help_str = "\n".join(hook_help_lines)
-        # logos_help_str = re.sub(logos_format_pat, self._prog, logos_help_str)
-        # logos_help_str = logos_help_str.replace(
-        #     "Objective-C: .m .mm", "Objective-C: .m .mm .x .xi .xm .xmi"
-        # )
         return hook_help_str + "\n"
 
 

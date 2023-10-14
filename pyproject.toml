@@ -26,7 +26,7 @@ dependencies = [
 repository = "https://github.com/jevinskie/homebrew-pre-commit-tap-hooks"
 
 [project.scripts]
-brew-audit-pre-commit = "homebrew_pre_commit_tap_hooks.brew_audit_pre_commit:main"
+"brew-audit-pre-commit.py" = "homebrew_pre_commit_tap_hooks.brew_audit_pre_commit:main"
 
 [tool.setuptools.dynamic]
 version = {attr = "homebrew_pre_commit_tap_hooks._version.__version__"}
