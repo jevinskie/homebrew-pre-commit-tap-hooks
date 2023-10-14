@@ -4,8 +4,9 @@ import subprocess
 import sys
 
 from path import Path
-from pre_commit_homebrew_tap.log import log, program_name
 from rich import print
+
+from homebrew_pre_commit_tap_hooks.log import log, program_name
 
 
 def looks_like_recipe(path: Path) -> tuple[bool, bool]:

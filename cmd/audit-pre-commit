@@ -10,4 +10,4 @@
 #:      -d, --debug                      Display a trace of all shell commands as they are executed.
 #:      -h, --help                       Show this message.
 
-brew-audit-pre-commit $@
+brewz-audit-pre-commit $@
